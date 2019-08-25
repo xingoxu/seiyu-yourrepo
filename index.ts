@@ -54,12 +54,15 @@ async function agree(page: puppeteer.Page) {
 
   }
 
+  console.log('同意する');
   await (await ensureElement('同意する', page.$('#row_1'))).click();
   await nextStep(page);
 
+  console.log('今日本住んでいますか');
   await (await ensureElement('今日本住んでいますか', page.$('#row_1'))).click();
   await nextStep(page);
 
+  console.log('従業員いますか');
   await (await ensureElement('従業員いますか', page.$('#row_0'))).click();
   await nextStep(page);
   return page;
@@ -76,9 +79,11 @@ function ask(question: string): Promise<string> {
 
 async function inputInformation(page: puppeteer.Page) {
   // あなたの年代をお答えください。
+  console.log('あなたの年代をお答えください。');
   assert.notEqual((await page.select('select#S2', '3')).length, 0);
   await nextStep(page);
 
+  console.log('レシート持っていますか？');
   await (await ensureElement('レシート持っていますか？', page.$('#row_1'))).click();
   await nextStep(page);
 
@@ -110,6 +115,7 @@ async function inputInformation(page: puppeteer.Page) {
   assert.notEqual((await page.select('select#S4b_01', Math.ceil(dateTime.getHours() / 2) + '')).length, 0);
 
 
+  console.log('Input Complete');
   await nextStep(page, 'input[alt="Click Here to Continue"]');
   return page;
 }
@@ -156,12 +162,14 @@ async function scoreTable(page: puppeteer.Page) {
 }
 
 async function score(page: puppeteer.Page) {
+  console.log('全体感覚');
   await (await ensureElement('全体感覚', page.$(`#star1_${random()}`))).click();
   await nextStep(page);
 
   await scoreTable(page);
   await nextStep(page);
 
+  console.log('選択 その他の食品');
   await (await ((await ensureElement('その他の食品', page.$('#A3_5_5'))).$x('..')))[0].click();
   await nextStep(page);
 
