@@ -54,15 +54,12 @@ async function agree(page: puppeteer.Page) {
 
   }
 
-  console.log('同意する');
   await (await ensureElement('同意する', page.$('#row_1'))).click();
   await nextStep(page);
 
-  console.log('今日本住んでいますか');
   await (await ensureElement('今日本住んでいますか', page.$('#row_1'))).click();
   await nextStep(page);
 
-  console.log('従業員いますか');
   await (await ensureElement('従業員いますか', page.$('#row_0'))).click();
   await nextStep(page);
   return page;
@@ -79,11 +76,9 @@ function ask(question: string): Promise<string> {
 
 async function inputInformation(page: puppeteer.Page) {
   // あなたの年代をお答えください。
-  console.log('あなたの年代をお答えください。');
   assert.notEqual((await page.select('select#S2', '3')).length, 0);
   await nextStep(page);
 
-  console.log('レシート持っていますか？');
   await (await ensureElement('レシート持っていますか？', page.$('#row_1'))).click();
   await nextStep(page);
 
@@ -173,34 +168,49 @@ async function score(page: puppeteer.Page) {
   await (await ((await ensureElement('その他の食品', page.$('#A3_5_5'))).$x('..')))[0].click();
   await nextStep(page);
 
+  console.log('score1');
   await scoreTable(page);
   await nextStep(page);
 
   // input Form
+  console.log('input 1');
   await nextStep(page);
 
+  console.log('score 2');
   await scoreTable(page);
   await nextStep(page);
 
   // input Form
+  console.log('input 2');
   await nextStep(page);
   // input Form
+  console.log('input 3');
+  try {
+    await scoreTable(page);
+  } catch (e) {
+  }
   await nextStep(page);
   // input Form
+  console.log('input 4');
   await nextStep(page);
 
+  console.log('score 3');
   await scoreTable(page);
   await nextStep(page);
 
+  console.log('徒歩');
   await (await ensureElement('徒歩', page.$('#row_1_img'))).click();
   await nextStep(page);
 
+  console.log('男性');
   await (await ensureElement('男性', page.$('#row_1_img'))).click();
   await nextStep(page);
 
+  console.log('一人暮らし');
   await (await ensureElement('一人暮らし', page.$('#row_1_img'))).click();
   await nextStep(page);
 
+  console.log('会社員');
   await (await ensureElement('会社員', page.$('#row_13_img'))).click();
   await nextStep(page);
 
