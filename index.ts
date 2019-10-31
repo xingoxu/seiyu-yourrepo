@@ -195,7 +195,14 @@ async function score(page: puppeteer.Page) {
   await nextStep(page);
 
   console.log('score 3');
-  await scoreTable(page);
+  try {
+    await scoreTable(page);
+  } catch (e) {
+    await wait(1000 * 60);
+    await nextStep(page);
+    await nextStep(page);
+    await scoreTable(page);
+  }
   await nextStep(page);
 
   console.log('徒歩');
