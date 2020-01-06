@@ -198,7 +198,7 @@ async function score(page: puppeteer.Page) {
   try {
     await scoreTable(page);
   } catch (e) {
-    await wait(1000 * 60);
+    // await wait(1000 * 60);
     await nextStep(page);
     await nextStep(page);
     await scoreTable(page);
